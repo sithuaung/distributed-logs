@@ -40,6 +40,12 @@ func newIndex(f *os.File, c Config) (*index, error) {
 	); err != nil {
 		return nil, err
 	}
+	// After a crash, Close() never ran, so the file is still at
+	// MaxIndexBytes. Scan backwards from the file size to find the
+	// actual data boundary (first non-zero entry from the end).
+	if idx.size > 0 {
+		idx.size = idx.scanActualSize()
+	}
 	return idx, nil
 }
 
@@ -72,6 +78,25 @@ func (i *index) Read(in int64) (out uint32, pos uint64, err error) {
 	out = enc.Uint32(i.mmap[pos : pos+offWidth])
 	pos = enc.Uint64(i.mmap[pos+offWidth : pos+entWidth])
 	return out, pos, nil
+}
+
+// scanActualSize finds the real data boundary after a crash.
+// When Close() doesn't run, the file remains at MaxIndexBytes.
+// Zero entries (off=0, pos=0) beyond the data are from the
+// pre-allocated mmap region.
+func (i *index) scanActualSize() uint64 {
+	// Walk forward through entries; stop at the first all-zero entry.
+	for pos := uint64(0); pos+entWidth <= uint64(len(i.mmap)); pos += entWidth {
+		off := enc.Uint32(i.mmap[pos : pos+offWidth])
+		storePos := enc.Uint64(i.mmap[pos+offWidth : pos+entWidth])
+		if off == 0 && storePos == 0 && pos > 0 {
+			return pos
+		}
+	}
+	// All entries are populated (or single entry with off=0, pos=0 which
+	// is the first valid entry at base offset).
+	numEntries := uint64(len(i.mmap)) / entWidth
+	return numEntries * entWidth
 }
 
 func (i *index) Write(off uint32, pos uint64) error {

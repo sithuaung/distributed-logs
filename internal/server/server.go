@@ -216,10 +216,7 @@ func authenticate(ctx context.Context) (context.Context, error) {
 	}
 
 	if p.AuthInfo == nil {
-		return ctx, status.New(
-			codes.Unauthenticated,
-			"no transport security being used",
-		).Err()
+		return context.WithValue(ctx, subjectContextKey{}, ""), nil
 	}
 
 	tlsInfo := p.AuthInfo.(credentials.TLSInfo)
