@@ -1,4 +1,4 @@
-module github.com/igor-baiborodine/proglog
+module github.com/sithuaung/distributed-logs
 
 go 1.25
 

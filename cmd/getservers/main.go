@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	api "github.com/igor-baiborodine/proglog/api/v1"
+	api "github.com/sithuaung/distributed-logs/api/v1"
 )
 
 func main() {

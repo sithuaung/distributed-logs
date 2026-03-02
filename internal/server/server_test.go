@@ -16,10 +16,10 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/status"
 
-	api "github.com/igor-baiborodine/proglog/api/v1"
-	"github.com/igor-baiborodine/proglog/internal/auth"
-	"github.com/igor-baiborodine/proglog/internal/config"
-	"github.com/igor-baiborodine/proglog/internal/log"
+	api "github.com/sithuaung/distributed-logs/api/v1"
+	"github.com/sithuaung/distributed-logs/internal/auth"
+	"github.com/sithuaung/distributed-logs/internal/config"
+	"github.com/sithuaung/distributed-logs/internal/log"
 )
 
 var debug = flag.Bool("debug", false, "Enable observability for debugging.")

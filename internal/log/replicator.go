@@ -7,7 +7,7 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 
-	api "github.com/igor-baiborodine/proglog/api/v1"
+	api "github.com/sithuaung/distributed-logs/api/v1"
 )
 
 type Replicator struct {

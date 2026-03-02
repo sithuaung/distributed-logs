@@ -10,8 +10,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/igor-baiborodine/proglog/internal/agent"
-	"github.com/igor-baiborodine/proglog/internal/config"
+	"github.com/sithuaung/distributed-logs/internal/agent"
+	"github.com/sithuaung/distributed-logs/internal/config"
 )
 
 func main() {

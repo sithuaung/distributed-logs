@@ -12,8 +12,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/travisjeffery/go-dynaport"
 
-	api "github.com/igor-baiborodine/proglog/api/v1"
-	"github.com/igor-baiborodine/proglog/internal/log"
+	api "github.com/sithuaung/distributed-logs/api/v1"
+	"github.com/sithuaung/distributed-logs/internal/log"
 )
 
 func TestMultipleNodes(t *testing.T) {
