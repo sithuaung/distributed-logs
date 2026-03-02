@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: proglog-acl
+  namespace: {{ .Release.Namespace }}
+data:
+  model.conf: |
+    # Request definition
+    [request_definition]
+    r = sub, obj, act
+
+    # Policy definition
+    [policy_definition]
+    p = sub, obj, act
+
+    # Policy effect
+    [policy_effect]
+    e = some(where (p.eft == allow))
+
+    # Matchers
+    [matchers]
+    m = r.sub == p.sub && r.obj == p.obj && r.act == p.act
+
+  policy.csv: |
+    p, root, *, produce
+    p, root, *, consume
