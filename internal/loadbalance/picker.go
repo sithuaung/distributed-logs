@@ -39,8 +39,7 @@ func (p *Picker) Build(buildInfo base.PickerBuildInfo) balancer.Picker {
 
 var _ balancer.Picker = (*Picker)(nil)
 
-func (p *Picker) Pick(info balancer.PickInfo) (
-	balancer.PickResult, error) {
+func (p *Picker) Pick(info balancer.PickInfo) (balancer.PickResult, error) {
 	p.mu.RLock()
 	defer p.mu.RUnlock()
 	var result balancer.PickResult
